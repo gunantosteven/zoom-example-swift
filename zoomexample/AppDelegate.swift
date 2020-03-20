@@ -11,9 +11,9 @@ import MobileRTC
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
-    var kSDKAppKey = ""
-    var kSDKAppSecret = ""
+    
+    var kSDKAppKey = "JwiCvNZfzLMZhTF6I0ktdEgquSVphbuzEBbm"
+    var kSDKAppSecret = "PNjhQcGByfU7NcmP0YcanuEL0oPKvCQRQ2IW"
     var kSDKDomain = "zoom.us"
     var window: UIWindow?
 
