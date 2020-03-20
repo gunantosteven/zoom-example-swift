@@ -21,25 +21,72 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GBj-Ua-hGp">
-                                <rect key="frame" x="162.5" y="127" width="89" height="30"/>
+                                <rect key="frame" x="162.5" y="126" width="89" height="30"/>
                                 <state key="normal" title="Join Meeting"/>
                                 <connections>
                                     <action selector="onJoinMeetingBtnTouched:" destination="BYZ-38-t0r" eventType="touchUpInside" id="CL0-M1-Mw7"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Nux-1Z-9ph">
+                                <rect key="frame" x="16" y="188" width="382" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tWn-AB-lmR">
+                                <rect key="frame" x="16" y="238" width="382" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Zo-xl-KtB">
+                                <rect key="frame" x="188" y="304" width="38" height="30"/>
+                                <state key="normal" title="Login"/>
+                                <connections>
+                                    <action selector="loginBtnTouched:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Uxd-b5-XF9"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Message" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jrg-km-Shk">
+                                <rect key="frame" x="16" y="412" width="382" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="18K-zF-4Fs">
+                                <rect key="frame" x="183" y="350" width="48" height="30"/>
+                                <state key="normal" title="Logout"/>
+                                <connections>
+                                    <action selector="logoutBtnTouched:" destination="BYZ-38-t0r" eventType="touchUpInside" id="W0n-c1-YfZ"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="Fvi-Qo-gud" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="16" id="9Cl-KO-Zpj"/>
-                            <constraint firstItem="GBj-Ua-hGp" firstAttribute="top" secondItem="Fvi-Qo-gud" secondAttribute="bottom" constant="33" id="Fup-Sw-dtA"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Jrg-km-Shk" secondAttribute="trailing" constant="16" id="9cA-r1-U2B"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="tWn-AB-lmR" secondAttribute="trailing" constant="16" id="CA7-M1-LRt"/>
+                            <constraint firstItem="GBj-Ua-hGp" firstAttribute="top" secondItem="Fvi-Qo-gud" secondAttribute="bottom" constant="32" id="Fup-Sw-dtA"/>
                             <constraint firstItem="Fvi-Qo-gud" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="Hv0-x6-AJ1"/>
+                            <constraint firstItem="tWn-AB-lmR" firstAttribute="top" secondItem="Nux-1Z-9ph" secondAttribute="bottom" constant="16" id="KRo-ki-iLg"/>
+                            <constraint firstItem="Jrg-km-Shk" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="KdU-MY-J5B"/>
+                            <constraint firstItem="18K-zF-4Fs" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="S55-w8-rjZ"/>
+                            <constraint firstItem="4Zo-xl-KtB" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Sb2-Mu-7N7"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Fvi-Qo-gud" secondAttribute="trailing" constant="16" id="TWy-JB-Fjg"/>
+                            <constraint firstItem="Nux-1Z-9ph" firstAttribute="top" secondItem="GBj-Ua-hGp" secondAttribute="bottom" constant="32" id="brt-8T-C89"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Nux-1Z-9ph" secondAttribute="trailing" constant="16" id="dib-kS-mmf"/>
+                            <constraint firstItem="18K-zF-4Fs" firstAttribute="top" secondItem="4Zo-xl-KtB" secondAttribute="bottom" constant="16" id="fbD-us-5PH"/>
+                            <constraint firstItem="4Zo-xl-KtB" firstAttribute="top" secondItem="tWn-AB-lmR" secondAttribute="bottom" constant="32" id="iiC-TZ-o8w"/>
+                            <constraint firstItem="Nux-1Z-9ph" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="m5D-A4-lMu"/>
+                            <constraint firstItem="Jrg-km-Shk" firstAttribute="top" secondItem="18K-zF-4Fs" secondAttribute="bottom" constant="32" id="qRW-6J-U9w"/>
+                            <constraint firstItem="tWn-AB-lmR" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="yo4-6w-Bhb"/>
                             <constraint firstItem="GBj-Ua-hGp" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="zYR-y1-ZgT"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
                         <outlet property="MeetingNumber" destination="Fvi-Qo-gud" id="zfM-lk-TvI"/>
+                        <outlet property="loginButton" destination="4Zo-xl-KtB" id="yAO-lB-lf1"/>
+                        <outlet property="messageLabel" destination="Jrg-km-Shk" id="5ny-Rw-NOG"/>
+                        <outlet property="passwordTextfield" destination="tWn-AB-lmR" id="Bbu-Iu-Sl3"/>
+                        <outlet property="usernameTextField" destination="Nux-1Z-9ph" id="yvw-E3-9af"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

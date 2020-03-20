@@ -12,9 +12,9 @@ import MobileRTC
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
-    var kSDKAppKey = "JwiCvNZfzLMZhTF6I0ktdEgquSVphbuzEBbm"
-    var kSDKAppSecret = "PNjhQcGByfU7NcmP0YcanuEL0oPKvCQRQ2IW"
-    var kSDKDomain = "zoom.us"
+    var kSDKAppKey = Constant.kSDKAppKey
+    var kSDKAppSecret = Constant.kSDKAppSecret
+    var kSDKDomain = Constant.kSDKDomain
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
