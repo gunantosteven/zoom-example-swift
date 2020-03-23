@@ -16,6 +16,10 @@ class ViewController: UIViewController {
     @IBOutlet weak var passwordTextfield: UITextField!
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var messageLabel: UILabel!
+    @IBOutlet weak var createScheduleMeetingButton: UIButton!
+    @IBOutlet weak var tableView: UITableView!
+    
+    var meetingItems : [MeetingItem]?
     
     var authService : MobileRTCAuthService? {
         if let authService = MobileRTC.shared().getAuthService() {
@@ -37,6 +41,14 @@ class ViewController: UIViewController {
             return nil
         }
     }
+    var preMeetingService : MobileRTCPremeetingService? {
+        if let preMeetingService = MobileRTC.shared().getPreMeetingService() {
+            preMeetingService.delegate = self
+            return preMeetingService
+        } else {
+            return nil
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,8 +66,13 @@ class ViewController: UIViewController {
             if let authService = self.authService {
                 if authService.isLoggedIn() {
                     self.messageLabel.text = "You login in as " + (authService.getAccountInfo()?.getUserName() ?? "")
+                    self.createScheduleMeetingButton.isEnabled = true
                 } else {
                     self.messageLabel.text = "non-login user" + (authService.getAccountInfo()?.getUserName() ?? "")
+                    self.createScheduleMeetingButton.isEnabled = false
+                }
+                if let preMeetingService = self.preMeetingService {
+                    preMeetingService.listMeeting()
                 }
             }
             self.view.hideToastActivity()
@@ -105,6 +122,25 @@ class ViewController: UIViewController {
         }
     }
     
+    @IBAction func createScheduleMeetingTouched(_ sender: Any) {
+        createScheduleMeeting()
+    }
+    
+    func createScheduleMeeting() {
+        if let preMeetingService = preMeetingService {
+            if let item = preMeetingService.createMeetingItem() {
+                item.setMeetingTopic("Bro Meeting")
+                item.setStartTime(Date())
+                item.setTimeZoneID(NSTimeZone.default.abbreviation()!)
+                item.setDurationInMinutes(60)
+                
+                preMeetingService.scheduleMeeting(item, withScheduleFor: usernameTextField.text)
+                preMeetingService.destroy(item)
+            }
+            preMeetingService.listMeeting()
+        }
+    }
+    
     @IBAction func loginBtnTouched(_ sender: Any) {
         loginWithEmail()
     }
@@ -134,8 +170,44 @@ class ViewController: UIViewController {
     
 }
 
-extension ViewController : MobileRTCMeetingServiceDelegate {
+extension ViewController : UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let meetingItem = self.meetingItems?[indexPath.row] {
+            MeetingNumber.text = meetingItem.meetingNumber
+        }
+    }
     
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            if let preMeetingService = preMeetingService, let meetingItem = self.meetingItems?[indexPath.row] {
+                if let item = preMeetingService.getMeetingItem(byUniquedID: UInt64(meetingItem.meetingNumber) ?? 0) {
+                    if preMeetingService.deleteMeeting(item) {
+                        meetingItems?.remove(at: indexPath.row)
+                        tableView.deleteRows(at: [indexPath], with: .fade)
+                    }
+                }
+            }
+        }
+    }
+}
+
+extension ViewController : UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return meetingItems?.count ?? 0
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "meetingItemsCell", for: indexPath)
+        if let meetingItem = self.meetingItems?[indexPath.row] {
+            cell.textLabel?.text = meetingItem.topic
+            cell.detailTextLabel?.text = meetingItem.meetingNumber
+        }
+        return cell
+    }
+}
+
+extension ViewController : MobileRTCMeetingServiceDelegate {
+
 }
 
 extension ViewController : MobileRTCAuthDelegate {
@@ -148,3 +220,27 @@ extension ViewController : MobileRTCAuthDelegate {
     }
 }
 
+extension ViewController : MobileRTCPremeetingDelegate {
+    func sinkSchedultMeeting(_ result: PreMeetingError, meetingUniquedID uniquedID: UInt64) {
+        print("sinkSchedultMeeting result \(result)")
+    }
+    
+    func sinkEditMeeting(_ result: PreMeetingError, meetingUniquedID uniquedID: UInt64) {
+        print("sinkEditMeeting result \(result)")
+    }
+    
+    func sinkDeleteMeeting(_ result: PreMeetingError) {
+        print("sinkDeleteMeeting result \(result)")
+    }
+    
+    func sinkListMeeting(_ result: PreMeetingError, withMeetingItems array: [Any]) {
+        if let items = array as? [MobileRTCMeetingItem]  {
+            for item in items {
+                print("item meeting number \(item.getMeetingNumber())")
+            }
+            self.meetingItems = items.map( { return MeetingItem(topic: $0.getMeetingTopic() ?? "", meetingNumber: $0.getMeetingNumber().description) } )
+            self.tableView.reloadData()
+        }
+        print("sinkListMeeting result \(result) \(array.count)")
+    }
+}

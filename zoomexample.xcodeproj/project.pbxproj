@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		76DDC88B24288F3700D18ADA /* MeetingItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76DDC88A24288F3700D18ADA /* MeetingItem.swift */; };
 		C707D6B82420615C000132D0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C707D6B72420615C000132D0 /* AppDelegate.swift */; };
 		C707D6BC2420615C000132D0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C707D6BB2420615C000132D0 /* ViewController.swift */; };
 		C707D6BF2420615C000132D0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C707D6BD2420615C000132D0 /* Main.storyboard */; };
@@ -37,6 +38,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		76DDC88A24288F3700D18ADA /* MeetingItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingItem.swift; sourceTree = "<group>"; };
 		C707D6B42420615C000132D0 /* zoomexample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = zoomexample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C707D6B72420615C000132D0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C707D6BB2420615C000132D0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -85,6 +87,7 @@
 			isa = PBXGroup;
 			children = (
 				C707D6B72420615C000132D0 /* AppDelegate.swift */,
+				76DDC88A24288F3700D18ADA /* MeetingItem.swift */,
 				C707D6BB2420615C000132D0 /* ViewController.swift */,
 				D046FB2F242477CB00A90186 /* Constant.swift */,
 				D046FB322424AFC500A90186 /* Toast.swift */,
@@ -183,6 +186,7 @@
 				D046FB332424AFC500A90186 /* Toast.swift in Sources */,
 				C707D6B82420615C000132D0 /* AppDelegate.swift in Sources */,
 				D046FB30242477CB00A90186 /* Constant.swift in Sources */,
+				76DDC88B24288F3700D18ADA /* MeetingItem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
