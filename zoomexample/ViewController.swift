@@ -67,15 +67,19 @@ class ViewController: UIViewController {
                 if authService.isLoggedIn() {
                     self.messageLabel.text = "You login in as " + (authService.getAccountInfo()?.getUserName() ?? "")
                     self.createScheduleMeetingButton.isEnabled = true
+                    self.loadListMeeting()
                 } else {
                     self.messageLabel.text = "non-login user" + (authService.getAccountInfo()?.getUserName() ?? "")
                     self.createScheduleMeetingButton.isEnabled = false
                 }
-                if let preMeetingService = self.preMeetingService {
-                    preMeetingService.listMeeting()
-                }
             }
             self.view.hideToastActivity()
+        }
+    }
+    
+    func loadListMeeting() {
+        if let preMeetingService = self.preMeetingService {
+            preMeetingService.listMeeting()
         }
     }
 
@@ -213,26 +217,31 @@ extension ViewController : MobileRTCMeetingServiceDelegate {
 extension ViewController : MobileRTCAuthDelegate {
     func onMobileRTCAuthReturn(_ returnValue: MobileRTCAuthError) {
         print(returnValue)
+        self.view.makeToast("\(returnValue)")
     }
     
     func onMobileRTCLogoutReturn(_ returnValue: Int) {
         print(returnValue)
+        self.view.makeToast("\(returnValue)")
     }
 }
 
 extension ViewController : MobileRTCPremeetingDelegate {
     func sinkSchedultMeeting(_ result: PreMeetingError, meetingUniquedID uniquedID: UInt64) {
         print("sinkSchedultMeeting result \(result)")
+        self.view.makeToast("sinkSchedultMeeting result \(result)")
     }
     
     func sinkEditMeeting(_ result: PreMeetingError, meetingUniquedID uniquedID: UInt64) {
         print("sinkEditMeeting result \(result)")
+        self.view.makeToast("sinkEditMeeting result \(result)")
     }
     
     func sinkDeleteMeeting(_ result: PreMeetingError) {
         print("sinkDeleteMeeting result \(result)")
+        self.view.makeToast("sinkDeleteMeeting result \(result)")
     }
-    
+        
     func sinkListMeeting(_ result: PreMeetingError, withMeetingItems array: [Any]) {
         if let items = array as? [MobileRTCMeetingItem]  {
             for item in items {
@@ -241,6 +250,8 @@ extension ViewController : MobileRTCPremeetingDelegate {
             self.meetingItems = items.map( { return MeetingItem(topic: $0.getMeetingTopic() ?? "", meetingNumber: $0.getMeetingNumber().description) } )
             self.tableView.reloadData()
         }
+        
         print("sinkListMeeting result \(result) \(array.count)")
+        self.view.makeToast("sinkListMeeting result \(result) \(array.count)")
     }
 }
