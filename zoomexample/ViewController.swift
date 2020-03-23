@@ -62,7 +62,7 @@ class ViewController: UIViewController {
     
     func loadUser() {
         self.view.makeToastActivity(.center)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
             if let authService = self.authService {
                 if authService.isLoggedIn() {
                     self.messageLabel.text = "You login in as " + (authService.getAccountInfo()?.getUserName() ?? "")
