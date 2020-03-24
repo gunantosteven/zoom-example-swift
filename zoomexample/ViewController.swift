@@ -11,9 +11,21 @@ import MobileRTC
 
 class ViewController: UIViewController {
 
-    @IBOutlet weak var MeetingNumber: UITextField!
-    @IBOutlet weak var usernameTextField: UITextField!
-    @IBOutlet weak var passwordTextfield: UITextField!
+    @IBOutlet weak var meetingNumberTextField: UITextField! {
+        didSet {
+            meetingNumberTextField.delegate = self
+        }
+    }
+    @IBOutlet weak var usernameTextField: UITextField! {
+        didSet {
+            usernameTextField.delegate = self
+        }
+    }
+    @IBOutlet weak var passwordTextfield: UITextField! {
+        didSet {
+            passwordTextfield.delegate = self
+        }
+    }
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var messageLabel: UILabel!
     @IBOutlet weak var createScheduleMeetingButton: UIButton!
@@ -84,7 +96,7 @@ class ViewController: UIViewController {
     }
 
     @IBAction func onJoinMeetingBtnTouched(_ sender: Any) {
-        let meetingNo = self.MeetingNumber.text
+        let meetingNo = self.meetingNumberTextField.text
         print("meetingNo " + (meetingNo ?? ""))
         
         view.endEditing(true)
@@ -177,7 +189,7 @@ class ViewController: UIViewController {
 extension ViewController : UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let meetingItem = self.meetingItems?[indexPath.row] {
-            MeetingNumber.text = meetingItem.meetingNumber
+            meetingNumberTextField.text = meetingItem.meetingNumber
         }
     }
     
@@ -207,6 +219,13 @@ extension ViewController : UITableViewDataSource {
             cell.detailTextLabel?.text = meetingItem.meetingNumber
         }
         return cell
+    }
+}
+
+extension ViewController : UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return false
     }
 }
 
