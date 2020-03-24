@@ -336,7 +336,6 @@
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/zoomexample/lib",
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/lib",
 				);
@@ -362,7 +361,6 @@
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/zoomexample/lib",
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/lib",
 				);
