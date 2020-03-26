@@ -74,7 +74,10 @@ class ViewController: UIViewController {
     
     func loadUser() {
         self.view.makeToastActivity(.center)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5) { [weak self] in
+            guard let self = self else {
+              return
+            }
             if let authService = self.authService {
                 if authService.isLoggedIn() {
                     self.messageLabel.text = "You login in as " + (authService.getAccountInfo()?.getUserName() ?? "")
@@ -83,6 +86,8 @@ class ViewController: UIViewController {
                 } else {
                     self.messageLabel.text = "non-login user" + (authService.getAccountInfo()?.getUserName() ?? "")
                     self.createScheduleMeetingButton.isEnabled = false
+                    self.meetingItems?.removeAll()
+                    self.tableView.reloadData()
                 }
             }
             self.view.hideToastActivity()
@@ -139,13 +144,22 @@ class ViewController: UIViewController {
     }
     
     @IBAction func createScheduleMeetingTouched(_ sender: Any) {
-        createScheduleMeeting()
+        let alert = UIAlertController(title: "Meeting Topic", message: "Set your meeting topic", preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "Add", style: UIAlertAction.Style.default, handler: { (action) -> Void in
+            if let text = alert.textFields?[0].text {
+                self.createScheduleMeeting(text)
+            }
+        }))
+        alert.addTextField(configurationHandler: {(textField: UITextField!) in
+            textField.placeholder = "Enter meeting title:"
+        })
+        self.present(alert, animated: true, completion: nil)
     }
     
-    func createScheduleMeeting() {
+    func createScheduleMeeting(_ title : String) {
         if let preMeetingService = preMeetingService {
             if let item = preMeetingService.createMeetingItem() {
-                item.setMeetingTopic("Bro Meeting")
+                item.setMeetingTopic(title)
                 item.setStartTime(Date())
                 item.setTimeZoneID(NSTimeZone.default.abbreviation()!)
                 item.setDurationInMinutes(60)
